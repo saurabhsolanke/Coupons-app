@@ -1,16 +1,28 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig : {
+    apiKey: "AIzaSyAbDnqKtJc0bhu69ZCMHzjKLNJIXN_tPCs",
+    authDomain: "coupons-d3538.firebaseapp.com",
+    projectId: "coupons-d3538",
+    storageBucket: "coupons-d3538.appspot.com",
+    messagingSenderId: "417026396222",
+    appId: "1:417026396222:web:2b25745fc0ced43b70c16f",
+    measurementId: "G-N3R75LG2EG"
+  }
 };
 
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAbDnqKtJc0bhu69ZCMHzjKLNJIXN_tPCs",
+//   authDomain: "coupons-d3538.firebaseapp.com",
+//   projectId: "coupons-d3538",
+//   storageBucket: "coupons-d3538.appspot.com",
+//   messagingSenderId: "417026396222",
+//   appId: "1:417026396222:web:2b25745fc0ced43b70c16f",
+//   measurementId: "G-N3R75LG2EG"
+// };
+
+const app = initializeApp(environment.firebaseConfig);
+const analytics = getAnalytics(app);

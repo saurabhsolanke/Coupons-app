@@ -1,0 +1,70 @@
+<main>
+  <div class="container">
+    <div class="row my-5">
+      <div class="col-md-6 col-sm-12 p-4" *ngFor="let coupon of coupons; let id = index">
+        <div class="coupon" (click)="open(content)" [ngStyle]="{'pointer-events': coupon.used ? 'none' : 'auto', 'opacity': coupon.used ? '0.5' : '1'}"
+        [attr.disabled]="coupon.used ? true : null" [id]="coupon.used ? 'disabled' : 'enabled'">
+          <div class="left">
+            <div>Enjoy Your Gift</div>
+          </div>
+          <div class="center">
+            <!-- <div id="scratch-card">
+              <canvas id="scratch" width="200" height="200"></canvas>
+              <div id="back">
+                <h3>&nbsp;&nbsp;GET 15%
+                  OFF&nbsp;&nbsp;<i class="fa-regular fa-copy" style="color: #000000;"></i></h3>
+              </div>
+              <canvas id="scratch" class="delay-hover" width="200" height="200"></canvas>
+              <img src="https://i.gifer.com/origin/1a/1af8d3b487b77085d5288814f151e1de_w200.gif">
+            </div> -->
+
+            <!-- <div id="scratch-card-{{coupon.number}}">
+              <canvas [id]="'scratch-' + coupon.number" width="200" height="200"></canvas>
+              <div id="back-{{coupon.number}}">
+                <h3>&nbsp;&nbsp;GET 15% OFF&nbsp;&nbsp;
+                  <i class="fa-regular fa-copy" style="color: #000000;"></i>
+                </h3>
+              </div>
+              <img src="https://i.gifer.com/origin/1a/1af8d3b487b77085d5288814f151e1de_w200.gif" alt="Scratch Image">
+            </div> -->
+            <div>
+              <h2>50% OFF</h2>
+              <h3>{{coupon.name}}</h3>
+              <small>Valid until August, 2025</small>
+            </div>
+          </div>
+          <div class="right">
+            <div>{{coupon.number}}</div>
+          </div>
+          <!-- <button (click)="couponclick(coupon.number, !coupon.used)">
+            {{ coupon.used ? 'Mark as Unused' : 'Mark as Used' }}
+          </button> -->
+        </div>
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Are you sure?</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <p class="lead">
+                  Are you sure you want to use this "{{coupon.name}}" coupon?
+                </p>
+                <p class="lead">
+                  You will not be able to use this code again.
+                </p>
+
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="modal.close('Save click')">Close</button>
+            <button type="button" class="btn btn-primary" (click)="couponclick(coupon.id, true)">Save
+              changes</button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</main>
