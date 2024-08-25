@@ -11,7 +11,7 @@
     position: relative;
     text-transform: uppercase;
   }
-  
+
   .coupon::before,
   .coupon::after {
     content: "";
@@ -21,7 +21,7 @@
     height: 100%;
     z-index: -1;
   }
-  
+
   .coupon::before {
     left: 0;
     background-image: radial-gradient(
@@ -30,7 +30,7 @@
       gold 26px
     );
   }
-  
+
   .coupon::after {
     right: 0;
     background-image: radial-gradient(
@@ -39,30 +39,30 @@
       gold 26px
     );
   }
-  
+
   .coupon > div {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
+
   .left {
     width: 20%;
     border-right: 2px dashed rgba(0, 0, 0, 0.13);
   }
-  
+
   .left div {
     transform: rotate(-90deg);
     white-space: nowrap;
     font-weight: bold;
     font-size: x-small;
   }
-  
+
   .center {
     flex-grow: 1;
     text-align: center;
   }
-  
+
   .right {
     width: 120px;
     background-image: radial-gradient(
@@ -71,14 +71,14 @@
       #fff 26px
     );
   }
-  
+
   .right div {
     font-family: "Libre Barcode 128 Text", cursive;
     font-size: 1rem;
     font-weight: 400;
     transform: rotate(-90deg);
   }
-  
+
   .center h2 {
     background: #000;
     color: gold;
@@ -86,17 +86,17 @@
     font-size: 2.15rem;
     white-space: nowrap;
   }
-  
+
   .center h3 {
     font-size: 2.15rem;
   }
-  
+
   .center small {
     font-size: 0.625rem;
     font-weight: 600;
     letter-spacing: 2px;
   }
-  
+
   /* Media Query for Tablets and Small Laptops */
   @media screen and (max-width: 768px) {
     .coupon {
@@ -106,12 +106,12 @@
       display: grid;
       grid-template-columns: 1fr;
     }
-  
+
     .left div, .right div {
       transform: rotate(0deg); /* Reset rotation */
     }
   }
-  
+
   /* Media Query for Mobile Devices */
   @media screen and (max-width: 500px) {
     .coupon {
@@ -119,24 +119,24 @@
       grid-template-columns: 1fr;
       gap: 10px; /* Add some gap for spacing */
     }
-  
+
     .left div, .right div {
       transform: rotate(0deg); /* Reset rotation */
     }
-  
+
     .center h2 {
       font-size: 1.5rem; /* Adjust font size for mobile */
     }
-  
+
     .center h3 {
       font-size: 1.5rem; /* Adjust font size for mobile */
     }
-  
+
     .center small {
       font-size: 0.5rem; /* Adjust font size for mobile */
     }
   }
-  
+
   #scratch-card {
     // height: 100vh;
     display: flex;
@@ -163,7 +163,8 @@ h3 {
     border-style: dotted;
     border-color: #267cee;
     border: 0.1px 0.1px 1px;
-    width: 160px;
+    width: auto;
+    max-width: 10rem !important;
   color: black;
     z-index: 2;
   background-color: rgb(255, 255, 255);
