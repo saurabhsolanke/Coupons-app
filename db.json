@@ -1,0 +1,11 @@
+{
+  "coupons": [
+    {
+      "id": 1,
+      "name": "json-server",
+      "number": "1024",
+      "used": true,
+      "description": "heyyy"
+    }
+  ]
+}

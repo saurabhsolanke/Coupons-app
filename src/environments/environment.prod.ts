@@ -3,6 +3,7 @@ import { getAnalytics } from "firebase/analytics";
 
 export const environment = {
     production: true,
+    local: 'http://localhost:8000/',
     firebaseConfig : {
       apiKey: "AIzaSyAbDnqKtJc0bhu69ZCMHzjKLNJIXN_tPCs",
       authDomain: "coupons-d3538.firebaseapp.com",
