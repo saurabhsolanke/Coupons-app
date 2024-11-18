@@ -1,4 +1,5 @@
 <main>
+
   <div class="container">
     <div *ngIf="items.length > 0; else noData">
       <ul>
@@ -7,74 +8,92 @@
         </li>
       </ul>
     </div>
-    <ng-template #noData>
-      <p>No items found.</p>
-    </ng-template>
-    <div class="row my-5">
-      <div class="col-md-6 col-sm-12 p-4" *ngFor="let coupon of coupons; let id = index">
-        <div class="coupon" (click)="open(content)" [ngStyle]="{'pointer-events': coupon.used ? 'none' : 'auto', 'opacity': coupon.used ? '0.5' : '1'}"
-        [attr.disabled]="coupon.used ? true : null" [id]="coupon.used ? 'disabled' : 'enabled'">
-          <div class="left">
-            <div>Enjoy Your Gift</div>
-          </div>
-          <div class="center">
-            <!-- <div id="scratch-card">
-              <canvas id="scratch" width="200" height="200"></canvas>
-              <div id="back">
-                <h3>&nbsp;&nbsp;GET 15%
-                  OFF&nbsp;&nbsp;<i class="fa-regular fa-copy" style="color: #000000;"></i></h3>
-              </div>
-              <canvas id="scratch" class="delay-hover" width="200" height="200"></canvas>
-              <img src="https://i.gifer.com/origin/1a/1af8d3b487b77085d5288814f151e1de_w200.gif">
-            </div> -->
 
-            <!-- <div id="scratch-card-{{coupon.number}}">
-              <canvas [id]="'scratch-' + coupon.number" width="200" height="200"></canvas>
-              <div id="back-{{coupon.number}}">
-                <h3>&nbsp;&nbsp;GET 15% OFF&nbsp;&nbsp;
-                  <i class="fa-regular fa-copy" style="color: #000000;"></i>
+    <canvas id="confetti-canvas"
+      style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99;"></canvas>
+    <div class="row">
+      <div class="col-md-6 col-sm-12 p-4" *ngFor="let coupon of coupons; let id = index">
+        <div data-aos="flip-left" class="div">
+          <div class="coupon" (click)="open(content)"
+            [ngStyle]="{'pointer-events': coupon.used ? 'none' : 'auto', 'opacity': coupon.used ? '0.5' : '1'}"
+            [attr.disabled]="coupon.used ? true : null" [id]="coupon.used ? 'disabled' : 'enabled'">
+
+            <div class="left">
+              <div>Enjoy Your Gift</div>
+            </div>
+            <div class="center">
+              <div class="container-fluid">
+                <h2>100% OFF</h2>
+                <h3 [ngClass]="{'hidden': !coupon.used, 'visible': coupon.used}">
+                  {{ coupon.name }}
                 </h3>
+                <small>Valid until 23 August, 2025</small>
               </div>
-              <img src="https://i.gifer.com/origin/1a/1af8d3b487b77085d5288814f151e1de_w200.gif" alt="Scratch Image">
-            </div> -->
-            <div class="container-fluid">
-              <h2>100% OFF</h2>
-              <h3>{{coupon.name}}</h3>
-              <small>Valid until 23 August, 2025</small>
+            </div>
+            <div class="right">
+              <div>{{coupon.number}}</div>
             </div>
           </div>
-          <div class="right">
-            <div>{{coupon.number}}</div>
-          </div>
-          <!-- <button (click)="couponclick(coupon.number, !coupon.used)">
-            {{ coupon.used ? 'Mark as Unused' : 'Mark as Used' }}
-          </button> -->
         </div>
         <ng-template #content let-modal>
           <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Are you sure?</h4>
+            <h4 class="modal-title" *ngIf="!coupon.used; else couponUsed1" id="modal-basic-title">Are you sure?</h4>
+            <ng-template #couponUsed1>
+              <h4>Congratulations!!! </h4>
+            </ng-template>
             <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
           </div>
           <div class="modal-body">
             <form>
               <div class="mb-3">
+                <!-- Show the appropriate message based on whether the coupon is used -->
                 <p class="lead">
-                  Are you sure you want to use this "{{coupon.name}}" coupon?
+                  <ng-container *ngIf="!coupon.used; else couponUsed">
+                    Are you sure you want to use this <b>"{{coupon.number}}"</b> coupon?
+                  </ng-container>
+                  <ng-template #couponUsed>
+                    <span @fadeInOut>
+                      You have selected <b>"{{coupon.name}}"</b> coupon. </span>
+                    <div data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                     <div class="coupon hover-effect" (click)="open(content)"
+                        [ngStyle]="{'pointer-events': coupon.used ? 'none' : 'auto'}"
+                        [attr.disabled]="coupon.used ? true : null">
+                        <div class="left">
+                          <div>Enjoy Your Gift</div>
+                        </div>
+                        <div class="center">
+                          <div class="container-fluid">
+                            <h2>100% OFF</h2>
+                            <h3 [ngClass]="{'hidden': !coupon.used, 'visible': coupon.used}">
+                              {{ coupon.name }}
+                            </h3>
+                            <small>Valid until 23 August, 2025</small>
+                          </div>
+                        </div>
+                        <div class="right">
+                          <div>{{coupon.number}}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </ng-template>
                 </p>
-                <p class="lead">
+                <p class="lead" *ngIf="!coupon.used">
                   You will not be able to use this code again.
                 </p>
-
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" (click)="modal.close('Save click')">Close</button>
-            <button type="button" class="btn btn-primary" (click)="couponclick(coupon.id, true)">Save
-              changes</button>
+            <button type="button" class="btn btn-primary" *ngIf="!coupon.used"
+              (click)="couponclick(coupon.id, true)">Use This Code</button>
           </div>
         </ng-template>
       </div>
     </div>
+    <ng-template #noData>
+      <p></p>
+    </ng-template>
   </div>
 </main>
