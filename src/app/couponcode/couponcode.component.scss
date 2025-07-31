@@ -1,0 +1,65 @@
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+    display: none;
+  }
+  
+  .confetti-container.show {
+    display: block;
+  }
+  
+  .confetti {
+    position: absolute;
+    top: -10%;
+    width: 10px;
+    height: 10px;
+    background: var(--confetti-color, #ffc700);
+    animation: fall 3s ease-in-out infinite;
+    opacity: 0.7;
+  }
+  
+  /* Randomize Confetti Positions */
+  .confetti:nth-child(odd) {
+    --confetti-color: #ff5733;
+  }
+  .confetti:nth-child(even) {
+    --confetti-color: #33c3ff;
+  }
+  
+  .confetti:nth-child(3n) {
+    --confetti-color: #c70039;
+  }
+  
+  .confetti:nth-child(4n) {
+    --confetti-color: #28b463;
+  }
+  
+  .confetti:nth-child(5n) {
+    --confetti-color: #f39c12;
+  }
+  
+  .confetti:nth-child(1) { left: 5%; animation-delay: 0s; }
+  .confetti:nth-child(2) { left: 10%; animation-delay: 0.2s; }
+  .confetti:nth-child(3) { left: 20%; animation-delay: 0.4s; }
+  /* Continue for other children with varying positions and delays */
+  
+  @keyframes fall {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.9;
+    }
+    100% {
+      transform: translateY(110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  

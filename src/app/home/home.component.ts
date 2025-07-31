@@ -4,6 +4,7 @@ import { CouponService } from '../coupon.service';
 import { Coupons } from '../coupons';
 import { LocaldbService } from '../localdb.service';
 import { SupabaseService } from '../supabase.service';
+import { LocalDataService } from '../local-data.service';
 import confetti from "canvas-confetti";
 import * as AOS from 'aos';
 import { trigger, transition, style, animate, state } from '@angular/animations';
@@ -30,12 +31,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
   items: any[] = [];
   private modalRef: NgbModalRef | null = null;
   showUsedTemplate: boolean = false;
+  isConfettiVisible: boolean = false;
+  confettiArray: number[] = Array(150).fill(0);
 
   constructor(
     public modalService: NgbModal,
     private localdb: LocaldbService,
     private couponService: CouponService,
-    private supabaseService: SupabaseService, private renderer: Renderer2, private el: ElementRef
+    private supabaseService: SupabaseService, 
+    private localDataService: LocalDataService,
+    private renderer: Renderer2, 
+    private el: ElementRef
   ) { }
   ngOnInit() {
     AOS.init();
@@ -67,26 +73,31 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Fetch coupons
+  // Fetch coupons from local data service
   async fetchPosts() {
     try {
-      this.coupons = (await this.supabaseService.getPosts()) || [];
+      this.coupons = (await this.localDataService.getCoupons()) || [];
     } catch (error) {
       console.error('Error fetching posts:', error);
     }
   }
 
-  // Coupon click: update the flag
-  async couponclick(couponid: number, isSaved: boolean) {
+  // Coupon click: update the flag using local data service
+  async couponclick(couponid: string, isSaved: boolean) {
     try {
+      this.isConfettiVisible = true;
+      this.playSound();
       const coupon = this.coupons.find((c) => c.id === couponid);
       if (coupon && isSaved) {
         coupon.used = true;
       }
-      await this.supabaseService.updateFlag(couponid, isSaved);
+      await this.localDataService.updateCouponFlag(couponid, isSaved);
       console.log('Coupon updated successfully');
+      setTimeout(() => {
+        this.isConfettiVisible = false;
+      }, 3000);
       // setTimeout(() => {
-        // this.showUsedTemplate = true;
+      // this.showUsedTemplate = true;
       // }, 1);
       if (this.modalRef) {
         // this.modalRef.close();
@@ -100,7 +111,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   // Open modal and store the reference
   open(content: TemplateRef<any>) {
     this.modalRef = this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title', size: 'lg' 
+      ariaLabelledBy: 'modal-basic-title', size: 'lg'
     },);
     this.modalRef.result.then(
       (result: any) => {
@@ -121,5 +132,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
       default:
         return `with: ${reason}`;
     }
+  }
+
+  playSound() {
+    const audio = new Audio();
+    audio.src = '/assets/Voicy_Confetti.mp3';
+    audio.load();
+    audio.play();
   }
 }

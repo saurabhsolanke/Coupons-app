@@ -1,26 +1,34 @@
 <p>couponcode works!</p>
 
 <div class="container d-flex justify-content-center my-5">
-    <div class="card border-0 shadow-lg" style="width: 400px; height: 200px; border-radius: 10px; overflow: hidden; position: relative;">
-      
-      <!-- Left Section -->
-      <div class="d-flex flex-column justify-content-center align-items-center bg-light" style="width: 20%; border-right: 2px dashed rgba(0, 0, 0, 0.13);">
-        <div class="text-uppercase fw-bold" style="transform: rotate(-90deg); white-space: nowrap;">
-          Enjoy Your Gift
-        </div>
+  <div class="card border-0 shadow-lg"
+    style="width: 400px; height: 200px; border-radius: 10px; overflow: hidden; position: relative;">
+
+    <!-- Left Section -->
+    <div class="d-flex flex-column justify-content-center align-items-center bg-light"
+      style="width: 20%; border-right: 2px dashed rgba(0, 0, 0, 0.13);">
+      <div class="text-uppercase fw-bold" style="transform: rotate(-90deg); white-space: nowrap;">
+        Enjoy Your Gift
       </div>
-  
-      <!-- Center Section -->
-      <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
-        <h2 class="text-uppercase bg-dark text-gold px-2" style="color: gold;">50% OFF</h2>
-        <h3 class="text-uppercase">Coupon</h3>
-        <small class="text-muted fw-semibold text-uppercase" style="letter-spacing: 2px;">Valid until May, 2023</small>
-      </div>
-  
-      <!-- Right Section -->
-      <div class="d-flex flex-column justify-content-center align-items-center bg-white" style="width: 120px; background-image: radial-gradient(circle at 100% 50%, transparent 25px, #fff 26px);">
-        <div class="font-monospace" style="transform: rotate(-90deg); font-size: 2.5rem;">87878521112</div>
-      </div>
-      
+    </div>
+
+    <!-- Center Section -->
+    <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
+      <h2 class="text-uppercase bg-dark text-gold px-2" style="color: gold;">50% OFF</h2>
+      <h3 class="text-uppercase">Coupon</h3>
+      <small class="text-muted fw-semibold text-uppercase" style="letter-spacing: 2px;">Valid until May, 2023</small>
+    </div>
+
+    <!-- Right Section -->
+    <div class="d-flex flex-column justify-content-center align-items-center bg-white"
+      style="width: 120px; background-image: radial-gradient(circle at 100% 50%, transparent 25px, #fff 26px);">
+      <div class="font-monospace" style="transform: rotate(-90deg); font-size: 2.5rem;">87878521112</div>
     </div>
   </div>
+  <button type="button" class="btn btn-primary m-5" (click)="couponclick()">
+    Use This Code
+  </button>
+  <div class="confetti-container" [class.show]="isConfettiVisible">
+    <div class="confetti" *ngFor="let i of confettiArray"></div>
+  </div>
+</div>
